@@ -1,5 +1,5 @@
 {
-  "name": "hawkeye-cli",
+  "name": "hawkeye",
   "version": "1.0.0",
   "description": "CLI to launch Hawkeye, a bundle analyzer / visualizer",
   "main": "index.js",
