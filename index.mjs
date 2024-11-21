@@ -5,9 +5,6 @@ import {readFileSync, writeFileSync} from 'fs';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 
-import express from 'express';
-import { fileURLToPath } from 'url';
-
 import packageJson from './package.json' with {type: "json"};
 
 program
@@ -59,13 +56,13 @@ program.command('init').action(async () => {
         ]);
 
         if (multiProjectWorkspace) {
-            const ANALYSE_SCRIPT_MULTI_PROJECT_WORKSPACE = `ng build  ${projectName} --stats-json --named-chunks && npx hawkeye analyze dist/${projectName}/stats.json`;
+            const ANALYSE_SCRIPT_MULTI_PROJECT_WORKSPACE = `ng build  ${projectName} --stats-json --named-chunks && npx hawkeye dist/${projectName}/stats.json`;
             PACKAGE_JSON.scripts = {
                 ...PACKAGE_JSON.scripts,
                 [`analyze:${projectName}`]: ANALYSE_SCRIPT_MULTI_PROJECT_WORKSPACE
             };
         } else {
-            const ANALYSE_SCRIPT_SINGLE_PROJECT_WORKSPACE = `ng build --stats-json --named-chunks && npx hawkeye analyze dist/${projectName}/stats.json`;
+            const ANALYSE_SCRIPT_SINGLE_PROJECT_WORKSPACE = `ng build --stats-json --named-chunks && npx hawkeye dist/${projectName}/stats.json`;
             PACKAGE_JSON.scripts = {...PACKAGE_JSON.scripts, analyze: ANALYSE_SCRIPT_SINGLE_PROJECT_WORKSPACE};
         }
 
