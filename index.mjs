@@ -8,7 +8,7 @@ import chalk from 'chalk';
 import packageJson from './package.json' with {type: "json"};
 
 program
-    .name('hawkeye')
+    .name('hawkeye-cli')
     .description('CLI to launch the Hawkeye app')
     .version(packageJson.version)
     .argument('<string>', 'path to the stats.json file')
@@ -56,13 +56,13 @@ program.command('init').action(async () => {
         ]);
 
         if (multiProjectWorkspace) {
-            const ANALYSE_SCRIPT_MULTI_PROJECT_WORKSPACE = `ng build  ${projectName} --stats-json --named-chunks && npx hawkeye dist/${projectName}/stats.json`;
+            const ANALYSE_SCRIPT_MULTI_PROJECT_WORKSPACE = `ng build  ${projectName} --stats-json --named-chunks && npx hawkeye-cli dist/${projectName}/stats.json`;
             PACKAGE_JSON.scripts = {
                 ...PACKAGE_JSON.scripts,
                 [`analyze:${projectName}`]: ANALYSE_SCRIPT_MULTI_PROJECT_WORKSPACE
             };
         } else {
-            const ANALYSE_SCRIPT_SINGLE_PROJECT_WORKSPACE = `ng build --stats-json --named-chunks && npx hawkeye dist/${projectName}/stats.json`;
+            const ANALYSE_SCRIPT_SINGLE_PROJECT_WORKSPACE = `ng build --stats-json --named-chunks && npx hawkeye-cli dist/${projectName}/stats.json`;
             PACKAGE_JSON.scripts = {...PACKAGE_JSON.scripts, analyze: ANALYSE_SCRIPT_SINGLE_PROJECT_WORKSPACE};
         }
 
